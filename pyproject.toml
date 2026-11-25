@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rubiks-cube-3d"
+version = "0.1.0"
+description = "An interactive 3D Rubik's Cube simulator with animated manual turns and automatic solving."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["panda3d>=1.10.16,<1.11", "kociemba>=1.2.1,<2"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.11", "mypy>=1.15", "build>=1.2"]
+
+[project.scripts]
+rubiks-cube-3d = "rubiks_cube.app:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+extend-exclude = [".kolvyrn_checkpoints"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+
+[tool.mypy]
+files = ["src"]
+check_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = ["panda3d.*", "direct.*", "kociemba"]
+ignore_missing_imports = true
+follow_untyped_imports = false
